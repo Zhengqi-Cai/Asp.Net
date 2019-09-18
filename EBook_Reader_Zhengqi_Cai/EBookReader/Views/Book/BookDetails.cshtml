@@ -1,0 +1,20 @@
+﻿@model Book
+@{
+    ViewBag.Title = "Book Details";
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+
+<h1>Book Details</h1>
+
+<div>Id:@Model.BookId</div>
+<div>ISBN:@Model.ISBN</div>
+<div>Title:@Model.Title</div>
+<div>Author:@Model.Author</div>
+<div>isPublic:@Model.isPublic</div>
+<div>Genre:@Model.Genre.Name</div>
+@if (SignInManager.IsSignedIn(User))
+{
+    <a asp-action="ReadOnline" asp-route-id=@Model.BookId>ReadOnline</a>
+}
+@Html.ActionLink("Book", "Index")

@@ -1,0 +1,86 @@
+﻿@using EBookReader.ViewModels.BookViewModel
+@model ReaderViewModel
+@using System.IO;
+@{
+    ViewData["Title"] = "ReadOnline";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+<script src="~/js/epub.js"></script>
+
+<script type="text/javascript">
+    window.hypothesisConfig = function () {
+        return {
+            openSidebar: false,
+            enableMultiFrameSupport: true,
+            onLayoutChange: function (state) {
+                var nav = document.getElementById("navigation");
+                if (state.expanded === true) {
+                    nav.classList.remove("open");
+                }
+            }
+        };
+    };
+</script>
+@*<script src="https://cdn.hypothes.is/hypothesis"></script>*@
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="~/css/hypothesis.css">
+
+<h1>@Model.BookTitle</h1>
+<label id="BookPath" class="hidden">@Model.RelativeFilePath</label>
+<label id="BookId" class="hidden">@Model.BookId</label>
+<div style="display:flex;height:80vh;text-align:center">
+    <div id="main">
+        <a id="opener">
+            <i class="material-icons">menu</i>
+        </a>
+        <div id="viewer" class="spreads"></div>
+        <span id="hiddenTitle"></span>
+        <a id="prev" href="#prev" class="arrow">
+            <i class="material-icons">chevron_left</i>
+        </a>
+        <a id="next" href="#next" class="arrow">
+            <i class="material-icons">chevron_right</i>
+        </a>
+        <button id="btnLarge" class="btnSize">+</button>
+        <button id="btnSmall" class="btnSize">-</button>
+        <a asp-action="index" style="right:0px; float:right">back to list</a>
+    </div>
+    <a id="commentOpener">
+        <i class="material-icons">menu</i>
+    </a>
+
+    <div id="CommentsFrame" style="width:20vw;text-align:center;display:flex;flex-direction:column; border:1px black solid;float:right;margin-left:10px;">
+
+        <textarea id="postingComment"></textarea>
+        <button id="btnPost">post</button>
+        <div id="comments" style="overflow-y:scroll">
+            @foreach (var comment in Model.Comments)
+            {
+                <div class="commentBlock" id="@string.Format("commentBlock{0}",comment.CommentId)">
+                    <p style="word-break:break-all">@comment.Content</p>
+                    <span class="hidden">@comment.CFI</span>
+                    <span style="float:left;left:0px; font-size:x-small;color:gray">@comment.CreateTime</span>
+                    <a href="#" class='btnDelete' onclick="deleteComment(@comment.CommentId)">delete</a>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+<div id="navigation">
+    <a id="closer">
+        <i class="material-icons">close</i>
+    </a>
+    <h1 id="title">...</h1>
+    @*<image id="cover" width="150px" />*@
+    <h2 id="author">...</h2>
+    <ul id="toc"></ul>
+</div>
+<script src="~/js/hypothesis.js"></script>
+
+
+
+

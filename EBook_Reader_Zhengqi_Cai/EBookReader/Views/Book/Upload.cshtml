@@ -1,0 +1,40 @@
+﻿@model Book
+@{
+    ViewData["Title"] = "Upload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Upload</h1>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Title
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            Author
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+    </dl>
+</div>
+<div>
+    <form asp-action="Upload" asp-route-id="@Model.BookId" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="fileInput" onchange="checkType()" />
+        <label id="labelTypeWarn" style="color:red; display:none">Incorrect file type!</label>
+        <button id="btnUpload" type="submit">Upload File</button>
+    </form>
+</div>
+
+@if (string.IsNullOrEmpty(Model.PathUrl))
+{
+    <a asp-action="DeleteBook" asp-route-id="@Model.BookId">Cancel</a>
+}
+else
+{
+    <a asp-action="Index">Finish without upload file</a>
+
+}

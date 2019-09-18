@@ -1,0 +1,52 @@
+﻿@model ICollection<Genre>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+    ViewBag.Title = "Index";
+}
+<label>Search the book you like: </label>
+
+<div style="text-align:center">
+    <form method="post" asp-action="FindBooks">
+        <input id="inputSearch" type="text" placeholder="Search..">
+        <input type="submit" value="Search"/>
+    </form>
+
+</div>
+<br />
+<p>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a asp-action="AddBook">Add new book</a>
+    }
+</p>
+@foreach (var item in Model)
+{
+    <h2>
+        @Html.DisplayFor(modelitem => item.Name)
+    </h2>
+    <table>
+        @foreach (var book in item.Books)
+        {
+            <tr>
+                <td>@book.ISBN</td>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>
+                    <a asp-action="BookDetails" asp-route-id="@book.BookId">Details</a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        if (User.IsInRole("Admin") || UserManager.GetUserName(User) == book.UploaderName)
+                        {
+                            <a asp-action="EditBook" asp-route-id="@book.BookId">Edit</a>
+                            <a asp-action="DeleteBook" asp-route-id="@book.BookId">Delete</a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
+

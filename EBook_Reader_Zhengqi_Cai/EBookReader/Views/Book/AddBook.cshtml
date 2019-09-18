@@ -1,0 +1,46 @@
+﻿@model Book
+@{
+    ViewBag.Title = "Add Book";
+}
+
+<h2>Add Book</h2>
+<form asp-action="AddBook" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="BookId" />
+    <table>
+        <tr>
+            <td><label asp-for="Genre.Name"></label></td>
+            <td>
+            <select asp-for="Genre.Name" asp-items="Html.GetEnumSelectList<GenreNames>()" required>
+                <option selected="selected" value=""></option>
+            </select></td>
+            <td><span asp-validation-for="Genre.Name"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="ISBN"></label></td>
+            <td><input asp-for="ISBN" required/></td>
+            <td><span asp-validation-for="ISBN"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Title"></label></td>
+            <td><input asp-for="Title" required /></td>
+            <td><span asp-validation-for="Title"></span></td>
+
+        </tr>
+        <tr>
+            <td><label asp-for="Author"></label></td>
+            <td><input asp-for="Author" required /></td>
+            <td><span asp-validation-for="Author"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="isPublic"></label></td>
+            <td><input asp-for="isPublic" /></td>
+            <td><span asp-validation-for="isPublic"></span></td>
+        </tr>
+
+
+    </table>
+    <input type="submit" value="Continue" />
+</form>
+<a asp-action="Index">Back to List</a>
+

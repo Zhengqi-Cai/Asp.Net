@@ -1,0 +1,24 @@
+Brief Introduction
+0. you need to download calibre as conversion tools
+1. Models only have one to many or one to one relationship
+2. Admin:
+zhengqi_cai@outlook.com Test@123
+
+Ordinary User:
+testUser@syr.edu Test@123
+Steve@syr.edu ..
+Bob@syr.edu ..
+
+3. Each user could create book for public or private, and edit or delete them afterwards. Index page would show all books that current user could access. The only privliage of Admin is that he can modify books that are not uploaded by him.
+4. commentBlock and Navigation could be hidden and shown.
+5. double click Comment could make the display location trace to the location where it created.  
+
+Todo:
+1. Set Author-Book to be many to many, add hightlight Model and BookUserProfile Model(bookmark,comments,hightlights). Set appropriate association between them for proper cascade delete
+2. finish search bar 
+3. decorate with boostrap
+4. calibre convert a bit slow, may change to another tool
+
+question:
+1. how to keep the database data, like to move to another machine with code first
+2. cache lib

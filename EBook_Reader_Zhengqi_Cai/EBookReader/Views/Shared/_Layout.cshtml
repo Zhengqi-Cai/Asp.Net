@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+
+    <script src="~/js/JavaScript.js"></script>
+    @*<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <script src="~/js/jsAJAX.js"></script>
+
+</head>
+<body @*onload="initTemplate()" *@>
+
+    @if ((ViewBag.Title != "ReadOnline")&& (ViewBag.Title != "Upload"))
+    {
+    <div class="topnav">
+        <a class="active" asp-action="Index">Home</a>
+        <a asp-action="About">About</a>
+
+        @*<a href="#contact">Contact</a>*@
+        @await Html.PartialAsync("_LoginLinks")
+    </div>
+        @*<div id="originTheme" class="lightTheme,hidden"></div>
+
+            <navKeysContainer>
+                <span> Theme</span>
+                <navKey>
+                    <input type="radio" name="Theme" value="lightTheme" onclick="toggleTheme(this)" />LightTheme
+                    <input type="radio" name="Theme" value="darkTheme" onclick="toggleTheme(this)" />DarkTheme
+                    <input type="radio" name="Theme" value="pageTheme" onclick="toggleTheme(this)" />PageTheme
+                </navKey>
+
+            </navKeysContainer>*@
+    }
+
+
+
+    <div>
+        @RenderBody()
+    </div>
+    <spacer-20></spacer-20>
+    <footer class="template">
+        Copyright © Zhengqi Cai, 2019
+        @*<span>Copyright © Zhengqi Cai, 2019</span>*@
+        @*<span id="dateAndTime"></span>*@
+    </footer>
+</body>
+</html>
